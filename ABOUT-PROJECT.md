@@ -19,3 +19,5 @@
 - Add new Shadcn component: this component should be shared across applications, the 1st and the 2nd app.
 
 ### Create Github repository
+
+- https://github.com/badeyesightcat/echo--with-ai
