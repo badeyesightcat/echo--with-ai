@@ -85,5 +85,5 @@
 ### C. Github
 
 - Commit changes
-- Push changes
+- Push changes: with a new branch
 - Review and merge PR
