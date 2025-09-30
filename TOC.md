@@ -80,10 +80,12 @@
   }
   ```
 
-- Generate ConvexProvider: refer to the [document](https://docs.convex.dev/quickstart/nextjs)
+- Generate ConvexProvider: refer to the [document](https://docs.convex.dev/quickstart/nextjs).
 
 ### C. Github
 
 - Commit changes
 - Push changes: with a new branch
-- Review and merge PR
+- Review and merge PR: Add CodeRabbit to the Gihub and make it to review PR
+
+## 03. Clerk Authentication
