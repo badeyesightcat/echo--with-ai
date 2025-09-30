@@ -4,6 +4,13 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
 
+/**
+ * Client-side page component that displays fetched users and a button to add a user named "Suzi".
+ *
+ * Fetches multiple users from the backend, renders them as JSON, and provides a button that invokes the add-user mutation.
+ *
+ * @returns The React element for the page.
+ */
 export default function Page() {
   const users = useQuery(api.users.getMany);
   const addUser = useMutation(api.users.add);
