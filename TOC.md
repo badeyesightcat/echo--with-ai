@@ -80,10 +80,25 @@
   }
   ```
 
-- Generate ConvexProvider: refer to the [document](https://docs.convex.dev/quickstart/nextjs)
+- Generate ConvexProvider: refer to the [document](https://docs.convex.dev/quickstart/nextjs).
 
 ### C. Github
 
 - Commit changes
 - Push changes: with a new branch
-- Review and merge PR
+- Review and merge PR: Add CodeRabbit to the Gihub and make it to review PR
+
+## 03. Clerk Authentication
+
+### A. Resolve a lint error related to unmatched versions of eslint and its subdependency @eslint/js
+
+### B. Setup Clerk with Convex
+
+- Create an account
+- Configure Convex JWT template \
+  : Choose convex template and then do not make any changes on it! And just save it. \
+- Add middleware, pages, etc.
+
+### C. Github
+
+- Commit changes
