@@ -1,7 +1,3 @@
-import React from "react";
-
-function page() {
+export default function page() {
   return <div>Test page</div>;
 }
-
-export default page;
