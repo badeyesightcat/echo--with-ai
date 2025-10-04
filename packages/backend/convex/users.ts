@@ -16,8 +16,14 @@ export const add = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
 
+    console.log("사용자정보", identity);
     if (identity === null) {
       throw new Error("Not authenticated");
+    }
+
+    const orgId = identity.orgId as string;
+    if (!orgId) {
+      throw new Error("Missing organization");
     }
 
     const userId = await ctx.db.insert("users", {
