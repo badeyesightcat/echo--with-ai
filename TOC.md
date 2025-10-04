@@ -98,7 +98,34 @@
 - Configure Convex JWT template \
   : Choose convex template and then do not make any changes on it! And just save it. \
 - Add middleware, pages, etc.
+- The most important and required process for security of the app, MUST use backend auth check!!!
 
 ### C. Github
 
 - Commit changes
+- Push changes
+- Review and merge PRs
+
+## 04. Organizations
+
+### A. Implement "AuthGuard"
+
+- Properly use "Authorized" and "Unauthorized" \
+  : Generate AuthGuard and re-organize sources along the way
+- Wrap (dashboard)/layout.tsx
+
+### B. Enable organizations
+
+- Create "org-selection" page
+- Implement "OrganizationGuard"
+- Limit members count
+
+### C. Modify middleware to ensure organization is active
+
+- Add a property serving the organization id inside JWT session.
+
+### D. Github
+
+- Commit changes
+- Push commits
+- Review and merge PRs
