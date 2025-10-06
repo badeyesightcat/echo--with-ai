@@ -129,3 +129,25 @@
 - Commit changes
 - Push commits
 - Review and merge PRs
+
+## 05. Error Tracking
+
+### A. Create an error scenario
+
+- Just add a string displaying an error with `throw new Error`
+
+### B. Track error in Convex dashboard
+
+- Can investigate errors inside Convex dashboard's Health, Functions, Logs
+
+### C. Integrate Sentry
+
+: after configuring all of those, implement `pnpm install` at the root of the project
+
+- Connect Convex: \ You have to subscribe PRO plan for Convex in order to use convex-friendly error report
+
+### D. Github
+
+- Commit changes
+- Push changes
+- Review and merge PRs
