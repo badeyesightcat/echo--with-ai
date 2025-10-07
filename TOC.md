@@ -151,3 +151,37 @@
 - Commit changes
 - Push changes
 - Review and merge PRs
+
+## 06. AI Voice Assistant
+
+### A. Create a Vapi account
+
+### B. Setup customer support agent
+
+: Those jobs can be done inside Tool menu.
+
+- Add knowledge base
+- Add tools
+
+### C. Test agent from dashboard
+
+- all the agent with test knowledge base
+- [ERROR] In Phone numbers page, once trying to create phone numbers with Vapi free numbers option the page got stalled. This needs to be fixed.
+
+### D. Test agent from client SDK
+
+### E. Explain Vapi's API and our multi-tenant needs
+
+- Multi-tenancy technical architecture enables whitelabelling business and branding model.
+- Multi-tenancy: single instance on a single server infrastructure serves multiple customers/clients. \ Core software and database are shared by all cients. \ But each tenant's dats is kept separate and isolated from others. \ This is "how"
+- Whitelabelling: individual tenants can brand shared products as their own. \ Reseller can make their own logo, colors, domain name on it. \ End user only sees the reseller's name not the original developer's
+- Symbiotic relationship: \
+  for provider: cost efficiency, customization without code changes, simple management
+  for reseller: rapid scaling,
+- In order to enable this whitelabelling concept, consider to adopt Amazon's secret manager
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PRs

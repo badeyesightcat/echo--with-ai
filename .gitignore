@@ -37,3 +37,7 @@ npm-debug.log*
 # Misc
 .DS_Store
 *.pem
+
+# Vapi
+accounts.csv
+transactions.csv
