@@ -180,8 +180,25 @@
   for reseller: rapid scaling,
 - In order to enable this whitelabelling concept, consider to adopt Amazon's secret manager
 
-### Github
+### F. Github
 
 - Commit changes
 - Push changes
 - Review and merge PRs
+
+## 07. Dashboard Layout
+
+### A. Add Shadcn/ui components
+
+### B. Create a dashboard layout
+
+- Create a Sidebar
+- Create Sidebar groups
+- Add UserButton and OrgSwitcher
+- Create empty pages
+
+### C. Github
+
+- Commit changes
+- Push changes
+- Review and merge PR

@@ -12,8 +12,6 @@ export default function Page() {
     <>
       <div className="flex flex-col items-center justify-center min-h-svh">
         apps/web
-        <UserButton />
-        <OrganizationSwitcher hidePersonal={true} />
         <Button onClick={() => addUser({ name: "Suzi" })}>Add user</Button>
       </div>
     </>
