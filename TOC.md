@@ -202,3 +202,21 @@
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 08. Theme
+
+### A. Modify global.css
+
+### B. Explore other themes
+
+### C. Modify Sidebar look
+
+### D. Don't use the constant for sidebar_state in which its time of execution the it cannot read the constant value.
+
+### E. Erase vapi-related key value, and also remove public api keys from the [Vapi dashboard](https://dashboard.vapi.ai/org/api-keys).
+
+### F. Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
