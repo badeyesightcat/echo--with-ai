@@ -123,6 +123,10 @@ export const DashboardSidebar = () => {
                     asChild
                     tooltip={item.title}
                     isActive={isActive(item.url)}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-sidebar-primary! text-sidebar-primary-foreground! font-normal!"
+                    )}
                   >
                     <Link href={item.url}>
                       <item.icon className="size-4" />
@@ -146,6 +150,10 @@ export const DashboardSidebar = () => {
                     asChild
                     tooltip={item.title}
                     isActive={isActive(item.url)}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-sidebar-primary! text-sidebar-primary-foreground!"
+                    )}
                   >
                     <Link href={item.url}>
                       <item.icon className="size-4" />
@@ -169,6 +177,10 @@ export const DashboardSidebar = () => {
                     asChild
                     tooltip={item.title}
                     isActive={isActive(item.url)}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-sidebar-primary! text-sidebar-primary-foreground!"
+                    )}
                   >
                     <Link href={item.url}>
                       <item.icon className="size-4" />
