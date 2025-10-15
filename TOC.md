@@ -220,3 +220,17 @@
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 09. Widget Layout
+
+### Create widget view
+
+### Create widget header
+
+### Create widget footer
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
