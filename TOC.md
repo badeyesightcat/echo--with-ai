@@ -252,3 +252,23 @@
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 11. Widget Screen Router
+
+### Add state management for routing
+
+- since widget is a tiny app, it doesn't need to be server-side rendering. So it is gonna be a SPA.
+
+### Create widget store
+
+- Using external library for state management, rather selected the native Context API of React which is composed of useContext and createContext.
+
+### Define screens
+
+### Create screen router
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
