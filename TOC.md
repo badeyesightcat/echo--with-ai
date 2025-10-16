@@ -234,3 +234,21 @@
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 10. Widget Session
+
+### Create "contactSession " table
+
+- Add a table inside convex/schema.ts
+
+### Create "contactSession" functions
+
+- Add a file for defining all the functions as to contactSessions inside convex/public/contactSessions which can be accessible from anywhere
+
+### Create Widget Auth screen
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
