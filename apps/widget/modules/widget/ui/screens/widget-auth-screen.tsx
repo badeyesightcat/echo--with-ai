@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 import { Doc } from "@workspace/backend/_generated/dataModel";
+import { useWidgetDispatch, useWidgetState } from "@/modules/widget/context";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -21,9 +22,20 @@ const formSchema = z.object({
 });
 
 // Temporary organizationId before adding state management
-const organizationId = "123";
+// const organizationId = "123";
 
 export const WidgetAuthScreen = () => {
+  const { organizationId } = useWidgetState();
+  const dispatch = useWidgetDispatch();
+  const setContactSesssionId = (
+    organizationId: string,
+    contactSessionId: string
+  ) =>
+    dispatch({
+      type: "CONTACT_SESSION_ID_FAMILY",
+      payload: { member: organizationId, value: contactSessionId },
+    });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -60,7 +72,9 @@ export const WidgetAuthScreen = () => {
       metadata,
     });
 
-    console.log({ contactSessionId });
+    setContactSesssionId(organizationId, contactSessionId);
+
+    console.log({ organizationId, contactSessionId });
   };
 
   return (

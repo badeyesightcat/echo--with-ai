@@ -272,3 +272,25 @@
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 12. Widget Loading
+
+### Add Error screen
+
+### Add Convex functions
+
+- "organizations.getOne"
+- "contactSessions.validate"
+
+### Add Loading Screen
+
+- Load "organizationId"
+- Verify organization
+- Load "contactSessionId"
+- Verify contact session
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
