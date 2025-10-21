@@ -1,0 +1,139 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { LoaderCircleIcon } from "lucide-react";
+import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
+import { useWidgetDispatch, useWidgetState } from "@/modules/widget/context";
+import { api } from "@workspace/backend/_generated/api";
+import { useAction, useMutation } from "convex/react";
+import { WidgetScreenType } from "@/modules/widget/types";
+import { CONTACT_SESSION_KEY } from "@/modules/widget/constants";
+
+type InitStep = "org" | "session" | "settings" | "vapi" | "done";
+
+export const WidgetLoadingScreen = ({
+  organizationId,
+}: {
+  organizationId: string | null;
+}) => {
+  const [step, setStep] = useState<InitStep>("org");
+  const [sessionValid, setSessionValid] = useState(false);
+
+  const { loadingMessage } = useWidgetState();
+  const dispatch = useWidgetDispatch();
+  const setOrganizationId = (payload: string) =>
+    dispatch({ type: "ORGANIZATION_ID", payload });
+  const setErrorMessage = (payload: string) =>
+    dispatch({ type: "ERROR", payload });
+  const setScreen = (payload: WidgetScreenType) =>
+    dispatch({ type: "SCREEN", payload });
+  const setLoadingMessage = (payload: string) =>
+    dispatch({ type: "LOADING", payload });
+  const sessionIdKey = `${CONTACT_SESSION_KEY}-${organizationId}`;
+  const widgetState = useWidgetState();
+  const contactSessionId = widgetState[sessionIdKey];
+
+  // Step 1. Validate organization
+  const validateOrganization = useAction(api.public.organizations.validate);
+  useEffect(() => {
+    if (step !== "org") {
+      return;
+    }
+
+    setLoadingMessage("Finding organization ID...");
+
+    if (!organizationId) {
+      setErrorMessage("Organization ID is required");
+      setScreen("error");
+      return;
+    }
+
+    setLoadingMessage("Verifying organization...");
+
+    validateOrganization({ organizationId })
+      .then((result) => {
+        if (result.valid) {
+          setOrganizationId(organizationId);
+          setStep("session");
+        } else {
+          setErrorMessage(result.reason || "Invalid configuration");
+          setScreen("error");
+        }
+      })
+      .catch(() => {
+        setErrorMessage("Unable to verify organization");
+        setScreen("error");
+      });
+  }, [
+    step,
+    organizationId,
+    validateOrganization,
+    // setErrorMessage,
+    // setOrganizationId,
+    // setScreen,
+    // setStep,
+    // setLoadingMessage
+  ]);
+
+  // Step 2. Validate session if it exists
+  const validateContactSession = useMutation(
+    api.public.contactSessions.validate
+  );
+  useEffect(() => {
+    if (step !== "session") {
+      return;
+    }
+
+    setLoadingMessage("Finding contact session ID...");
+
+    if (!contactSessionId) {
+      setSessionValid(false);
+      setStep("done");
+      return;
+    }
+
+    setLoadingMessage("Validating session...");
+
+    validateContactSession({ contactSessionId })
+      .then((result) => {
+        setSessionValid(result.valid);
+        setStep("done");
+      })
+      .catch(() => {
+        setSessionValid(false);
+        setStep("done");
+      });
+  }, [
+    step,
+    contactSessionId,
+    // validateContactSession,
+    // setSessionValid,
+    // setStep,
+    // setLoadingMessage,
+  ]);
+
+  // Step 3.
+  useEffect(() => {
+    if (step !== "done") {
+      return;
+    }
+
+    const hasValidSession = contactSessionId && sessionValid;
+    setScreen(hasValidSession ? "selection" : "auth");
+  }, [step, contactSessionId, sessionValid, setScreen]);
+
+  return (
+    <>
+      <WidgetHeader>
+        <div className="flex flex-col justify-between gap-y-0.5 p-5 font-semibold">
+          <p className="text-3xl">Hi there! 👋</p>
+          <p className="text-xl">Let&apos;s get you started</p>
+        </div>
+      </WidgetHeader>
+      <div className="flex flex-col flex-1 items-center justify-center gap-y-4 p-4 text-muted-foreground">
+        <LoaderCircleIcon className="animate-spin" />
+        <p className="text-sm">{loadingMessage || "Loading..."}</p>
+      </div>
+    </>
+  );
+};
