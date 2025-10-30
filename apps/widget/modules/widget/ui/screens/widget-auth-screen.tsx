@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 import { Doc } from "@workspace/backend/_generated/dataModel";
-import { useWidgetDispatch, useWidgetState } from "@/modules/widget/context";
+import { useOrganizationId, useWidgetDispatch } from "@/modules/widget/context";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -25,7 +25,7 @@ const formSchema = z.object({
 // const organizationId = "123";
 
 export const WidgetAuthScreen = () => {
-  const { organizationId } = useWidgetState();
+  const organizationId = useOrganizationId();
   const dispatch = useWidgetDispatch();
   const setContactSesssionId = (
     organizationId: string,
@@ -73,8 +73,6 @@ export const WidgetAuthScreen = () => {
     });
 
     setContactSesssionId(organizationId, contactSessionId);
-
-    console.log({ organizationId, contactSessionId });
   };
 
   return (

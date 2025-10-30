@@ -1,4 +1,5 @@
 import { WIDGET_SCREENS } from "@/modules/widget/constants";
+import { Id } from "@workspace/backend/_generated/dataModel";
 
 export type WidgetScreenType = (typeof WIDGET_SCREENS)[number];
 
@@ -11,7 +12,8 @@ export interface WidgetStateType extends PersistedState {
   errorMessage: string | null;
   loadingMessage: string | null;
   organizationId: string | null;
-  contactSessionIdFamily?: { [key: string]: string | null };
+  // contactSessionIdUpdated: number | undefined;
+  conversationId: Id<"conversations"> | null;
 }
 
 export type WidgetActionType =
@@ -25,4 +27,5 @@ export type WidgetActionType =
         member: string | null;
         value: string | null;
       };
-    };
+    }
+  | { type: "CONVERSATION_ID"; payload: Id<"conversations"> | null };

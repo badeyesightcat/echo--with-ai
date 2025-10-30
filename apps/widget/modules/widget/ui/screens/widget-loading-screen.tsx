@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { LoaderCircleIcon } from "lucide-react";
 import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
-import { useWidgetDispatch, useWidgetState } from "@/modules/widget/context";
+import {
+  useContactSessionId,
+  useLoadingMessage,
+  useWidgetDispatch,
+} from "@/modules/widget/context";
 import { api } from "@workspace/backend/_generated/api";
 import { useAction, useMutation } from "convex/react";
 import { WidgetScreenType } from "@/modules/widget/types";
-import { CONTACT_SESSION_KEY } from "@/modules/widget/constants";
 
 type InitStep = "org" | "session" | "settings" | "vapi" | "done";
 
@@ -19,7 +22,6 @@ export const WidgetLoadingScreen = ({
   const [step, setStep] = useState<InitStep>("org");
   const [sessionValid, setSessionValid] = useState(false);
 
-  const { loadingMessage } = useWidgetState();
   const dispatch = useWidgetDispatch();
   const setOrganizationId = (payload: string) =>
     dispatch({ type: "ORGANIZATION_ID", payload });
@@ -29,9 +31,9 @@ export const WidgetLoadingScreen = ({
     dispatch({ type: "SCREEN", payload });
   const setLoadingMessage = (payload: string) =>
     dispatch({ type: "LOADING", payload });
-  const sessionIdKey = `${CONTACT_SESSION_KEY}-${organizationId}`;
-  const widgetState = useWidgetState();
-  const contactSessionId = widgetState[sessionIdKey];
+
+  const loadingMessage = useLoadingMessage();
+  const contactSessionId = useContactSessionId(organizationId);
 
   // Step 1. Validate organization
   const validateOrganization = useAction(api.public.organizations.validate);

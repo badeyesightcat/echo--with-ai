@@ -294,3 +294,17 @@
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 13. Conversations
+
+### Add selection screen
+
+### Add "conversations" schema
+
+### Add "conversations" functions
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
