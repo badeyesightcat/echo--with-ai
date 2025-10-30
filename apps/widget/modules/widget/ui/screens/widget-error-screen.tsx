@@ -2,10 +2,10 @@
 
 import { AlertTriangleIcon } from "lucide-react";
 import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
-import { useWidgetState } from "@/modules/widget/context";
+import { useErrorMessage } from "@/modules/widget/context";
 
 export const WidgetErrorScreen = () => {
-  const { errorMessage } = useWidgetState();
+  const errorMessage = useErrorMessage();
 
   return (
     <>

@@ -7,6 +7,7 @@ import {
   Dispatch,
   useContext,
   useEffect,
+  useMemo,
 } from "react";
 import {
   WidgetStateType,
@@ -19,15 +20,6 @@ const WidgetStateContext = createContext<WidgetStateType | null>(null);
 const WidgetDispatchContext = createContext<Dispatch<WidgetActionType> | null>(
   null
 );
-
-// const initialPersistedState = {} as PersistedState;
-
-// const initialState = {
-//   screen: "loading",
-//   errorMessage: "Oppsie",
-//   loadingMessage: "loading actually...",
-//   organizationId: "",
-// } as WidgetStateType;
 
 // Define the reducer logic
 const widgetReducer = (
@@ -47,11 +39,13 @@ const widgetReducer = (
       const dynamicKey = `${CONTACT_SESSION_KEY}-${action.payload.member}`;
       return {
         ...state,
-        contactSessionIdFamily: {
-          ...state.contactSessionIdFamily,
-          [dynamicKey]: action.payload.value,
-        },
         [dynamicKey]: action.payload.value,
+        // contactSessionIdUpdated: Date.now(),
+      };
+    case "CONVERSATION_ID":
+      return {
+        ...state,
+        conversationId: action.payload,
       };
     default:
       return state;
@@ -59,14 +53,14 @@ const widgetReducer = (
 };
 
 const getPersistedState = (state: WidgetStateType): PersistedState => {
-  // const persisted = {} as PersistedState;
-  // Object.keys(state).forEach((key) => {
-  //   if (key.startsWith(CONTACT_SESSION_KEY)) {
-  //     persisted[key] = state[key];
-  //   }
-  // });
-  // return persisted;
-  return { ...state.contactSessionIdFamily };
+  const persisted = {} as PersistedState;
+  Object.keys(state).forEach((key) => {
+    if (key.startsWith(CONTACT_SESSION_KEY)) {
+      persisted[key] = state[key];
+    }
+  });
+  return persisted;
+  // return { ...state.contactSessionIdFamily };
 };
 
 const loadInitialState = () => {
@@ -75,7 +69,8 @@ const loadInitialState = () => {
     errorMessage: "Oppsie",
     loadingMessage: "loading actually...",
     organizationId: "",
-    contactSessionIdFamily: {},
+    // contactSessionIdUpdated: 0,
+    conversationId: null,
   };
 
   try {
@@ -115,6 +110,16 @@ export const WidgetProvider = ({ children }: { children: ReactNode }) => {
     loadInitialState
   );
 
+  const persistedKeys = useMemo(
+    () => Object.keys(getPersistedState(state)),
+    [state]
+  );
+
+  const persistedValues = useMemo(
+    () => Object.values(getPersistedState(state)),
+    [state]
+  );
+
   useEffect(() => {
     // Extract only the fields we want to save
     const persistedState = getPersistedState(state);
@@ -133,7 +138,7 @@ export const WidgetProvider = ({ children }: { children: ReactNode }) => {
     // We now include the 'customSettings' object in the dependency array.
     // The reducer ensures a new reference for customSettings is created whenever it changes,
     // which correctly triggers this effect.
-  }, [state.contactSessionIdFamily]);
+  }, [persistedKeys, persistedValues]);
 
   return (
     <WidgetStateContext.Provider value={state}>
@@ -162,4 +167,36 @@ export const useWidgetDispatch = () => {
   }
 
   return context;
+};
+
+export const useContactSessionId = (organizationId: string | null) => {
+  const context = useWidgetState();
+  const sessionKeyPrefix = `${CONTACT_SESSION_KEY}-${organizationId}`;
+
+  return context[sessionKeyPrefix];
+};
+
+export const useOrganizationId = () => {
+  const { organizationId } = useWidgetState();
+  return organizationId;
+};
+
+export const useLoadingMessage = () => {
+  const { loadingMessage } = useWidgetState();
+  return loadingMessage;
+};
+
+export const useErrorMessage = () => {
+  const { errorMessage } = useWidgetState();
+  return errorMessage;
+};
+
+export const useScreen = () => {
+  const { screen } = useWidgetState();
+  return screen;
+};
+
+export const useConversationId = () => {
+  const { conversationId } = useWidgetState();
+  return conversationId;
 };
