@@ -308,3 +308,47 @@
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 14. AI agents
+
+### Fix a security issue from the previous chapter
+
+- When you call .getOne for fetching conversation, we must to check not only the conversation but also the contactSessionId fro security issue.
+
+### Add Convex Agent component
+
+```
+pnpm -F backend add @convex-dev/agent
+```
+
+- Create a file whose file name is convex.config.ts
+
+```
+# If you got an error after installing convex agent component, install below:
+pnpm -F backend add convex-helpers
+```
+
+- Under Convex directory, MUST name files in a word which cannot have -(dash) in the name
+
+### Choose AI provider(Gemini, OpenAI, Anthropic, ...)
+
+- Add API keys
+- Install AI-sdk
+
+### Delete all old conversations
+
+- Inside convex dashboard
+
+### Update "conversations.create" function
+
+### Add AI components (kibo-ui)
+
+### Create "messages" functions
+
+- Create internal functoins
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
