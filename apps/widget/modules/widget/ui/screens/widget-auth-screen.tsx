@@ -15,14 +15,12 @@ import { useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 import { Doc } from "@workspace/backend/_generated/dataModel";
 import { useOrganizationId, useWidgetDispatch } from "@/modules/widget/context";
+import { WidgetScreenType } from "../../types";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
 });
-
-// Temporary organizationId before adding state management
-// const organizationId = "123";
 
 export const WidgetAuthScreen = () => {
   const organizationId = useOrganizationId();
@@ -35,6 +33,8 @@ export const WidgetAuthScreen = () => {
       type: "CONTACT_SESSION_ID_FAMILY",
       payload: { member: organizationId, value: contactSessionId },
     });
+  const setScreen = (payload: WidgetScreenType) =>
+    dispatch({ type: "SCREEN", payload });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -73,6 +73,8 @@ export const WidgetAuthScreen = () => {
     });
 
     setContactSesssionId(organizationId, contactSessionId);
+
+    setScreen("selection");
   };
 
   return (

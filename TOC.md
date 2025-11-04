@@ -352,3 +352,19 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 15. Infinite scroll
+
+### Create "useInfiniteScroll" hook
+
+### Create "InfiniteScrollTrigger" component
+
+### Create "DiceBearAvatar" component
+
+- Add "logo.svg"
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
