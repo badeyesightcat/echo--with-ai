@@ -84,13 +84,13 @@ export const WidgetChatScreen = () => {
       initialNumItems: 10,
     }
   );
-  console.log(messages);
 
   const { topElementRef, handleLoadMore, canLoadMore, isLoadingMore } =
     useInfiniteScroll({
       status: messages.status,
       loadMore: messages.loadMore,
       loadSize: 10,
+      // observerEnabled: false,
     });
 
   const form = useForm<z.infer<typeof formSchema>>({

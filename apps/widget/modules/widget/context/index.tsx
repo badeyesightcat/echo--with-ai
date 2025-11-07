@@ -129,7 +129,7 @@ export const WidgetProvider = ({ children }: { children: ReactNode }) => {
       Object.keys(persistedState).forEach((key) => {
         localStorage.setItem(key, persistedState[key] as string);
       });
-      console.log("State saved to localStorage:", persistedState);
+      // console.log("State saved to localStorage:", persistedState);
     } catch (error) {
       console.error("Failed to save state to localStorage:", error);
     }

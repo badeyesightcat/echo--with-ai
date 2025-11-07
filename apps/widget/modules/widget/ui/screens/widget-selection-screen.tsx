@@ -11,8 +11,9 @@ import { ChevronRightIcon, MessageSquareTextIcon } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 import { WidgetScreenType } from "../../types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Id } from "@workspace/backend/_generated/dataModel";
+import { WidgetFooter } from "../components/widget-footer";
 
 export const WidgetSelectionScreen = () => {
   const dispatch = useWidgetDispatch();
@@ -65,6 +66,7 @@ export const WidgetSelectionScreen = () => {
           <p className="text-xl">Let&apos;s get you started</p>
         </div>
       </WidgetHeader>
+
       <div className="flex flex-col flex-1 gap-y-4 p-4 overflow-y-auto">
         <Button
           className="h-16 w-full justify-between bg-primary-foreground"
@@ -79,6 +81,8 @@ export const WidgetSelectionScreen = () => {
           <ChevronRightIcon />
         </Button>
       </div>
+
+      <WidgetFooter />
     </>
   );
 };
