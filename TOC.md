@@ -368,3 +368,17 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 16. Widget input
+
+### Create "conversations.getMany" function
+
+### Create "WidgetInboxScreen" component
+
+### Create "ConversationStatusIcon" component
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
