@@ -1,17 +1,22 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Lora, Roboto_Mono } from "next/font/google";
 
 import "@workspace/ui/globals.css";
 import { Providers } from "@/components/providers";
 import { ClerkProvider } from "@clerk/nextjs";
 
-const fontSans = Geist({
+const fontSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-const fontMono = Geist_Mono({
+const fontMono = Roboto_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+});
+
+const fontSerif = Lora({
+  subsets: ["latin"],
+  variable: "--font-serif",
 });
 
 export default function RootLayout({
@@ -25,7 +30,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
+        className={`${fontSans.variable} ${fontMono.variable} ${fontSerif.variable} font-sans antialiased`}
       >
         <ClerkProvider>
           <Providers>{children}</Providers>

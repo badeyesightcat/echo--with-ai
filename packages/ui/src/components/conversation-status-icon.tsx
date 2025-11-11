@@ -13,7 +13,7 @@ const statusConfig = {
   },
   escalated: {
     icon: ArrowUpIcon,
-    bgColor: "bg-[#ff0]",
+    bgColor: "bg-[#f59e0b]",
   },
   unresolved: {
     icon: ArrowRightIcon,
@@ -35,7 +35,7 @@ export const ConversationStatusIcon = ({
         className
       )}
     >
-      <Icon className="size-3 stroke-3 text-white" />
+      <Icon className={cn("size-3 stroke-3 text-white")} />
     </div>
   );
 };
