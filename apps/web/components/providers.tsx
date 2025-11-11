@@ -4,6 +4,7 @@ import * as React from "react";
 import { ConvexReactClient } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { useAuth } from "@clerk/nextjs";
+import { WebProvider } from "@/modules/dashboard/context";
 
 if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
   throw new Error(
@@ -19,7 +20,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       client={convex}
       useAuth={useAuth}
     >
-      {children}
+      <WebProvider>{children}</WebProvider>
     </ConvexProviderWithClerk>
   );
 }

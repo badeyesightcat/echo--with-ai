@@ -382,3 +382,17 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 17. Dashboard index
+
+### Create "ConversationsLayout" layout
+
+### Create "ConversationsPanel" component
+
+### Create "converations.getMany" function
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
