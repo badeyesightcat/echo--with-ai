@@ -396,3 +396,17 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 18. Dashboard chat
+
+### Create "ConversationIdView" view
+
+### Create "messages" functions
+
+### Create "converations" functions
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
