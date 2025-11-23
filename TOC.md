@@ -410,3 +410,19 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 19. AI Tool calling
+
+### Implement manual status change
+
+### Implement tool-based status change
+
+### Implement "enhance" prompt function
+
+### Add infinite scroll and loading to dashboard chat
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
