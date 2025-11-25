@@ -426,3 +426,21 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 20. Generating embeddings
+
+### When operator takes over, change status to "escalated"
+
+### Retrieval-augmented generation
+
+### Create "files" function
+
+- addFile (and helpers)
+- deleteFile
+- listFiles
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
