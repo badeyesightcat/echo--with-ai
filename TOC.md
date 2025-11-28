@@ -1,5 +1,7 @@
 # TOC
 
+> [!CAUTION] DO NOT MESS WITH THE VERSION ON WHICH YOU ARE WORKING
+
 ## 01. Setup
 
 ### A. Install pnpm v10 (pnpm: package manager)
@@ -438,6 +440,24 @@ pnpm -F backend add convex-helpers
 - addFile (and helpers)
 - deleteFile
 - listFiles
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
+
+## 21. Knowledge Base
+
+### Double-check the embedding dimension number in rag.ts
+
+### Create "files.list" function
+
+### Create UI
+
+- Table
+- UploadDialog
+- DeleteDialog
 
 ### Github
 
