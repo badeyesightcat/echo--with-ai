@@ -464,3 +464,15 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 22. AI Search Tool
+
+### Create "search" tool
+
+### Improve prompts
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
