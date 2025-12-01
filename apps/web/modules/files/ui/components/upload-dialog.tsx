@@ -19,6 +19,7 @@ import {
   DropzoneEmptyState,
 } from "@workspace/ui/components/dropzone";
 import { api } from "@workspace/backend/_generated/api";
+import { LoaderCircleIcon } from "lucide-react";
 
 interface UploadDialogProps {
   open: boolean;
@@ -102,6 +103,11 @@ export const UploadDialog = ({
         </DialogHeader>
 
         <div className="space-y-4">
+          {isUploading && (
+            <div className="absolute w-full h-full flex flex-col items-center justify-center p-8 top-0 left-0 z-10">
+              <LoaderCircleIcon className="animate-spin h-12 w-12 text-muted-foreground/50" />
+            </div>
+          )}
           <div className="space-y-2">
             <Label htmlFor="category">Category</Label>
             <Input
@@ -137,7 +143,7 @@ export const UploadDialog = ({
             accept={{
               "application/pdf": [".pdf"],
               "text/csv": [".csv"],
-              "text/plaing": [".txt"],
+              "text/plain": [".txt"],
             }}
             disabled={isUploading}
             maxFiles={1}

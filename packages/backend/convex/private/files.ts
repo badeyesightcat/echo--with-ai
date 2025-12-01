@@ -262,7 +262,7 @@ const formatFileSize = (bytes: number): string => {
   }
 
   const k = 1024;
-  const sizes = ["B", "KB", "MG", "GB"];
+  const sizes = ["B", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
   return `${Number.parseFloat((bytes / k ** 1).toFixed(1))} ${sizes[i]}`;
