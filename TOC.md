@@ -476,3 +476,14 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 23. AWS Secrets Manager
+
+- Create AWS account
+- Create IAM user
+- Create custom IAM policy
+- Create ARN for tenant wildcard
+- Attach policy to the IAM user
+- Create access key for the user
+- Store keys in .env.local
+- Store keys in Convex dashboard
