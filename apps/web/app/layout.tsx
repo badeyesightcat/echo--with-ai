@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Lora, Roboto_Mono } from "next/font/google";
 import "@workspace/ui/globals.css";
 import { Providers } from "@/components/providers";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "@workspace/ui/components/sonner";
 
 const fontSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -33,7 +34,10 @@ export default function RootLayout({
         className={`${fontSans.variable} ${fontMono.variable} ${fontSerif.variable} font-sans antialiased`}
       >
         <ClerkProvider>
-          <Providers>{children}</Providers>
+          <Providers>
+            <Toaster />
+            {children}
+          </Providers>
         </ClerkProvider>
       </body>
     </html>

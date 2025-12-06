@@ -487,3 +487,11 @@ pnpm -F backend add convex-helpers
 - Create access key for the user
 - Store keys in .env.local
 - Store keys in Convex dashboard
+
+## 24. VAPI plugin
+
+- Create "AWS secrets" lib
+- Create "plugins" schema
+- Create "secrets" functions
+- Create "VapiView" view
+- Create "PluginCard" component
