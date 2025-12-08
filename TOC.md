@@ -495,3 +495,21 @@ pnpm -F backend add convex-helpers
 - Create "secrets" functions
 - Create "VapiView" view
 - Create "PluginCard" component
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
+
+## 25. VAPI Data
+
+- Create "vapi" functions
+- Create "use-vapi-data" hook
+- Create "ConnectedView" component
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
