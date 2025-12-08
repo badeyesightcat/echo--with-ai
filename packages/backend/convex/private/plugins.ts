@@ -38,6 +38,8 @@ export const remove = mutation({
       });
     }
 
+    // TODO: Schedule secret deletion
+
     await ctx.db.delete(existingPlugin._id);
   },
 });
