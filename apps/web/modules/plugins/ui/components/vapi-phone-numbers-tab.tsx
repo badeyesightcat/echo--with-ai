@@ -39,6 +39,21 @@ export const VapiPhoneNumbersTab = () => {
               );
             }
 
+            if (error) {
+              return (
+                <div className="border-t">
+                  <div className="px-6 py-8 text-center">
+                    <p className="text-destructive font-medium">
+                      Failed to load phone numbers
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {error.message}
+                    </p>
+                  </div>
+                </div>
+              );
+            }
+
             if (phoneNumbers.length === 0) {
               return (
                 <TableRow>
@@ -61,7 +76,7 @@ export const VapiPhoneNumbersTab = () => {
                   <div className="flex items-center gap-3">
                     <PhoneIcon className="size-4 text-muted-foreground" />
                     <span className="font-mono">
-                      {phoneNumber.number || "Not figured"}
+                      {phoneNumber.number || "Not configured"}
                     </span>
                   </div>
                 </TableCell>

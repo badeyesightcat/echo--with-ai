@@ -9,7 +9,7 @@ import {
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
