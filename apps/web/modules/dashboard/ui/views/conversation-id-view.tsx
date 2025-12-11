@@ -24,7 +24,7 @@ import {
 } from "@workspace/ui/components/ai/message";
 import { AIResponse } from "@workspace/ui/components/ai/response";
 import { Form, FormField } from "@workspace/ui/components/form";
-import { z } from "zod";
+import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";

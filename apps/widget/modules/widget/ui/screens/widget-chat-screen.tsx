@@ -36,7 +36,7 @@ import {
 } from "@workspace/ui/components/ai/suggestion";
 import { useThreadMessages, toUIMessages } from "@convex-dev/agent/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import z from "zod";
 import { useForm } from "react-hook-form";
 import { Form, FormField } from "@workspace/ui/components/form";
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";

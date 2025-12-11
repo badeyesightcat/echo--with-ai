@@ -12,28 +12,42 @@ export const useVapiPhoneNumbers = (): {
   error: Error | null;
 } => {
   const [phoneNumbers, setPhoneNumbers] = useState<PhoneNumbers>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   const getPhoneNumbers = useAction(api.private.vapi.getPhoneNumbers);
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const response = await getPhoneNumbers();
+        if (cancelled) {
+          return;
+        }
         setPhoneNumbers(response);
         setError(null);
       } catch (error) {
+        if (cancelled) {
+          return;
+        }
         setError(error as Error);
         toast.error("Failed to fetch phone numbers");
       } finally {
-        setIsLoading(false);
+        if (!cancelled) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchData();
-  }, [getPhoneNumbers]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return { data: phoneNumbers, isLoading, error };
 };
@@ -44,28 +58,42 @@ export const useVapiAssistants = (): {
   error: Error | null;
 } => {
   const [assistants, setAssistants] = useState<Assistants>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   const getAssistants = useAction(api.private.vapi.getAssistants);
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const response = await getAssistants();
+        if (cancelled) {
+          return;
+        }
         setAssistants(response);
         setError(null);
       } catch (error) {
+        if (cancelled) {
+          return;
+        }
         setError(error as Error);
         toast.error("Failed to fetch assistants");
       } finally {
-        setIsLoading(false);
+        if (!cancelled) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchData();
-  }, [getAssistants]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return { data: assistants, isLoading, error };
 };

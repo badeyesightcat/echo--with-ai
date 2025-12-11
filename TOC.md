@@ -513,3 +513,17 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 26. Widget Customization
+
+- Fix "use-vapi-data" hooks
+- Create "widgetSettings" schema
+- Create "widgetSettings" functions
+- Create Customization view
+- Create Customization form
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR
