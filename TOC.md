@@ -527,3 +527,15 @@ pnpm -F backend add convex-helpers
 - Commit changes
 - Push changes
 - Review and merge PR
+
+## 27. Widget Config
+
+- Change default greeting message
+- Create public "widgetSettings" functions
+- Load suggestions into widget
+
+### Github
+
+- Commit changes
+- Push changes
+- Review and merge PR

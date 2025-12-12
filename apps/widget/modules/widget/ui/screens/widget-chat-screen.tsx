@@ -6,6 +6,7 @@ import {
   useConversationId,
   useOrganizationId,
   useWidgetDispatch,
+  useWidgetSettings,
 } from "@/modules/widget/context";
 import { Button } from "@workspace/ui/components/button";
 import { ArrowLeftIcon, MenuIcon } from "lucide-react";
@@ -42,6 +43,7 @@ import { Form, FormField } from "@workspace/ui/components/form";
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
+import { useMemo } from "react";
 
 const formSchema = z.object({
   message: z.string().min(1, "Message is required"),
@@ -52,11 +54,24 @@ export const WidgetChatScreen = () => {
   const organizationdId = useOrganizationId();
   const conversationId = useConversationId();
   const contactSessionId = useContactSessionId(organizationdId);
+  const widgetSettings = useWidgetSettings();
 
   const onBack = () => {
     setConversationId(null);
     setScreen("selection");
   };
+
+  const suggestions = useMemo(() => {
+    if (!widgetSettings) {
+      return [];
+    }
+
+    return Object.keys(widgetSettings.defaultSuggestions).map((key) => {
+      return widgetSettings.defaultSuggestions[
+        key as keyof typeof widgetSettings.defaultSuggestions
+      ];
+    });
+  }, [widgetSettings]);
 
   const setScreen = (payload: WidgetScreenType) =>
     dispatch({ type: "SCREEN", payload });
@@ -170,7 +185,30 @@ export const WidgetChatScreen = () => {
           ))}
         </AIConversationContent>
       </AIConversation>
-      {/* TODO: Add suggestions */}
+
+      {toUIMessages(messages.results ?? [])?.length === 1 && (
+        <AISuggestions className="flex flex-col w-full items-end p-2">
+          {suggestions.map((suggestion, idx) => {
+            if (!suggestion) {
+              return null;
+            }
+            return (
+              <AISuggestion
+                key={idx}
+                suggestion={suggestion}
+                onClick={() => {
+                  form.setValue("message", suggestion, {
+                    shouldDirty: true,
+                    shouldTouch: true,
+                    shouldValidate: true,
+                  });
+                  form.handleSubmit(onSubmit)();
+                }}
+              />
+            );
+          })}
+        </AISuggestions>
+      )}
 
       <Form {...form}>
         <AIInput

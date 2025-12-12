@@ -41,16 +41,19 @@ export const VapiPhoneNumbersTab = () => {
 
             if (error) {
               return (
-                <div className="border-t">
-                  <div className="px-6 py-8 text-center">
+                <TableRow>
+                  <TableCell
+                    colSpan={3}
+                    className="px-6 py-8 text-center"
+                  >
                     <p className="text-destructive font-medium">
                       Failed to load phone numbers
                     </p>
                     <p className="text-sm text-muted-foreground mt-1">
                       {error.message}
                     </p>
-                  </div>
-                </div>
+                  </TableCell>
+                </TableRow>
               );
             }
 
