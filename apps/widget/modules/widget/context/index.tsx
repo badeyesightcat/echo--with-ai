@@ -47,6 +47,11 @@ const widgetReducer = (
         ...state,
         conversationId: action.payload,
       };
+    case "WIDGET_SETTINGS":
+      return {
+        ...state,
+        widgetSettings: action.payload,
+      };
     default:
       return state;
   }
@@ -71,6 +76,7 @@ const loadInitialState = () => {
     organizationId: "",
     // contactSessionIdUpdated: 0,
     conversationId: null,
+    widgetSettings: null,
   };
 
   try {
@@ -199,4 +205,9 @@ export const useScreen = () => {
 export const useConversationId = () => {
   const { conversationId } = useWidgetState();
   return conversationId;
+};
+
+export const useWidgetSettings = () => {
+  const { widgetSettings } = useWidgetState();
+  return widgetSettings;
 };

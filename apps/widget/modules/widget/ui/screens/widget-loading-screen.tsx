@@ -7,10 +7,11 @@ import {
   useContactSessionId,
   useLoadingMessage,
   useWidgetDispatch,
+  useWidgetSettings,
 } from "@/modules/widget/context";
 import { api } from "@workspace/backend/_generated/api";
-import { useAction, useMutation } from "convex/react";
-import { WidgetScreenType } from "@/modules/widget/types";
+import { useAction, useMutation, useQuery } from "convex/react";
+import { WidgetScreenType, WidgetSettingsType } from "@/modules/widget/types";
 
 type InitStep = "org" | "session" | "settings" | "vapi" | "done";
 
@@ -31,6 +32,11 @@ export const WidgetLoadingScreen = ({
     dispatch({ type: "SCREEN", payload });
   const setLoadingMessage = (payload: string) =>
     dispatch({ type: "LOADING", payload });
+  const setWidgetSettings = (payload: WidgetSettingsType) =>
+    dispatch({
+      type: "WIDGET_SETTINGS",
+      payload,
+    });
 
   const loadingMessage = useLoadingMessage();
   const contactSessionId = useContactSessionId(organizationId);
@@ -69,12 +75,12 @@ export const WidgetLoadingScreen = ({
   }, [
     step,
     organizationId,
-    validateOrganization,
+    // validateOrganization,
     // setErrorMessage,
     // setOrganizationId,
     // setScreen,
     // setStep,
-    // setLoadingMessage
+    // setLoadingMessage,
   ]);
 
   // Step 2. Validate session if it exists
@@ -90,7 +96,7 @@ export const WidgetLoadingScreen = ({
 
     if (!contactSessionId) {
       setSessionValid(false);
-      setStep("done");
+      setStep("settings");
       return;
     }
 
@@ -99,11 +105,11 @@ export const WidgetLoadingScreen = ({
     validateContactSession({ contactSessionId })
       .then((result) => {
         setSessionValid(result.valid);
-        setStep("done");
+        setStep("settings");
       })
       .catch(() => {
         setSessionValid(false);
-        setStep("done");
+        setStep("settings");
       });
   }, [
     step,
@@ -114,7 +120,29 @@ export const WidgetLoadingScreen = ({
     // setLoadingMessage,
   ]);
 
-  // Step 3.
+  // Step 3. Load widget settings
+  const widgetSettings = useQuery(
+    api.public.widgetSettings.getByOrganizationId,
+    organizationId ? { organizationId: organizationId } : "skip"
+  );
+
+  useEffect(() => {
+    if (step !== "settings") {
+      return;
+    }
+
+    setLoadingMessage("Loading widget settings...");
+
+    if (widgetSettings !== undefined) {
+      setWidgetSettings(widgetSettings);
+      setStep("done");
+    }
+  }, [
+    step,
+    widgetSettings,
+    // setLoadingMessage, setWidgetSettings, setStep
+  ]);
+
   useEffect(() => {
     if (step !== "done") {
       return;
