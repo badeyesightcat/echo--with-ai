@@ -62,15 +62,11 @@ export const WidgetChatScreen = () => {
   };
 
   const suggestions = useMemo(() => {
-    if (!widgetSettings) {
+    if (!widgetSettings?.defaultSuggestions) {
       return [];
     }
 
-    return Object.keys(widgetSettings.defaultSuggestions).map((key) => {
-      return widgetSettings.defaultSuggestions[
-        key as keyof typeof widgetSettings.defaultSuggestions
-      ];
-    });
+    return Object.values(widgetSettings.defaultSuggestions).filter(Boolean);
   }, [widgetSettings]);
 
   const setScreen = (payload: WidgetScreenType) =>
@@ -188,13 +184,13 @@ export const WidgetChatScreen = () => {
 
       {toUIMessages(messages.results ?? [])?.length === 1 && (
         <AISuggestions className="flex flex-col w-full items-end p-2">
-          {suggestions.map((suggestion, idx) => {
+          {suggestions.map((suggestion) => {
             if (!suggestion) {
               return null;
             }
             return (
               <AISuggestion
-                key={idx}
+                key={suggestion}
                 suggestion={suggestion}
                 onClick={() => {
                   form.setValue("message", suggestion, {

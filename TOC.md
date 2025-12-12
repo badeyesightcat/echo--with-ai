@@ -1,4 +1,4 @@
-# TOC
+# Table Of Contents
 
 > [!CAUTION] DO NOT MESS WITH THE VERSION ON WHICH YOU ARE WORKING
 
@@ -231,12 +231,6 @@
 
 ### Create widget footer
 
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
-
 ## 10. Widget Session
 
 ### Create "contactSession " table
@@ -248,12 +242,6 @@
 - Add a file for defining all the functions as to contactSessions inside convex/public/contactSessions which can be accessible from anywhere
 
 ### Create Widget Auth screen
-
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
 
 ## 11. Widget Screen Router
 
@@ -268,12 +256,6 @@
 ### Define screens
 
 ### Create screen router
-
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
 
 ## 12. Widget Loading
 
@@ -291,12 +273,6 @@
 - Load "contactSessionId"
 - Verify contact session
 
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
-
 ## 13. Conversations
 
 ### Add selection screen
@@ -304,12 +280,6 @@
 ### Add "conversations" schema
 
 ### Add "conversations" functions
-
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
 
 ## 14. AI agents
 
@@ -349,12 +319,6 @@ pnpm -F backend add convex-helpers
 
 - Create internal functoins
 
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
-
 ## 15. Infinite scroll
 
 ### Create "useInfiniteScroll" hook
@@ -365,12 +329,6 @@ pnpm -F backend add convex-helpers
 
 - Add "logo.svg"
 
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
-
 ## 16. Widget input
 
 ### Create "conversations.getMany" function
@@ -378,12 +336,6 @@ pnpm -F backend add convex-helpers
 ### Create "WidgetInboxScreen" component
 
 ### Create "ConversationStatusIcon" component
-
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
 
 ## 17. Dashboard index
 
@@ -393,12 +345,6 @@ pnpm -F backend add convex-helpers
 
 ### Create "converations.getMany" function
 
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
-
 ## 18. Dashboard chat
 
 ### Create "ConversationIdView" view
@@ -406,12 +352,6 @@ pnpm -F backend add convex-helpers
 ### Create "messages" functions
 
 ### Create "converations" functions
-
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
 
 ## 19. AI Tool calling
 
@@ -422,12 +362,6 @@ pnpm -F backend add convex-helpers
 ### Implement "enhance" prompt function
 
 ### Add infinite scroll and loading to dashboard chat
-
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
 
 ## 20. Generating embeddings
 
@@ -441,12 +375,6 @@ pnpm -F backend add convex-helpers
 - deleteFile
 - listFiles
 
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
-
 ## 21. Knowledge Base
 
 ### Double-check the embedding dimension number in rag.ts
@@ -459,23 +387,10 @@ pnpm -F backend add convex-helpers
 - UploadDialog
 - DeleteDialog
 
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
-
 ## 22. AI Search Tool
 
-### Create "search" tool
-
-### Improve prompts
-
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
+- Create "search" tool
+- Improve prompts
 
 ## 23. AWS Secrets Manager
 
@@ -496,23 +411,11 @@ pnpm -F backend add convex-helpers
 - Create "VapiView" view
 - Create "PluginCard" component
 
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
-
 ## 25. VAPI Data
 
 - Create "vapi" functions
 - Create "use-vapi-data" hook
 - Create "ConnectedView" component
-
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
 
 ## 26. Widget Customization
 
@@ -522,20 +425,15 @@ pnpm -F backend add convex-helpers
 - Create Customization view
 - Create Customization form
 
-### Github
-
-- Commit changes
-- Push changes
-- Review and merge PR
-
 ## 27. Widget Config
 
 - Change default greeting message
 - Create public "widgetSettings" functions
 - Load suggestions into widget
 
-### Github
+## 28. Widget Vapi
 
-- Commit changes
-- Push changes
-- Review and merge PR
+- Create public "secrets" function
+- Load Vapi secrets in loading screen
+- Modify "use-vapi" hook to use organization's secrets
+- Modify "selection-screen" UI to display voice options

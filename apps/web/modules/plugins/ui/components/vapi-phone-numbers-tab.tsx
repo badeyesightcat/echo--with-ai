@@ -50,7 +50,9 @@ export const VapiPhoneNumbersTab = () => {
                       Failed to load phone numbers
                     </p>
                     <p className="text-sm text-muted-foreground mt-1">
-                      {error.message}
+                      {error instanceof Error && error.message
+                        ? error.message
+                        : "Please try again"}
                     </p>
                   </TableCell>
                 </TableRow>

@@ -7,11 +7,14 @@ import {
   useContactSessionId,
   useLoadingMessage,
   useWidgetDispatch,
-  useWidgetSettings,
 } from "@/modules/widget/context";
 import { api } from "@workspace/backend/_generated/api";
 import { useAction, useMutation, useQuery } from "convex/react";
-import { WidgetScreenType, WidgetSettingsType } from "@/modules/widget/types";
+import {
+  VapiSecretsType,
+  WidgetScreenType,
+  WidgetSettingsType,
+} from "@/modules/widget/types";
 
 type InitStep = "org" | "session" | "settings" | "vapi" | "done";
 
@@ -37,6 +40,8 @@ export const WidgetLoadingScreen = ({
       type: "WIDGET_SETTINGS",
       payload,
     });
+  const setVapiSecrets = (payload: VapiSecretsType) =>
+    dispatch({ type: "VAPI_SECRETS", payload });
 
   const loadingMessage = useLoadingMessage();
   const contactSessionId = useContactSessionId(organizationId);
@@ -123,7 +128,7 @@ export const WidgetLoadingScreen = ({
   // Step 3. Load widget settings
   const widgetSettings = useQuery(
     api.public.widgetSettings.getByOrganizationId,
-    organizationId ? { organizationId: organizationId } : "skip"
+    organizationId ? { organizationId } : "skip"
   );
 
   useEffect(() => {
@@ -135,13 +140,39 @@ export const WidgetLoadingScreen = ({
 
     if (widgetSettings !== undefined) {
       setWidgetSettings(widgetSettings);
-      setStep("done");
+      setStep("vapi");
     }
   }, [
     step,
     widgetSettings,
     // setLoadingMessage, setWidgetSettings, setStep
   ]);
+
+  // Step 4. Load Vapi secrets (Optional)
+  const getVapiSecrets = useAction(api.public.secrets.getVapiSecrets);
+  useEffect(() => {
+    if (step !== "vapi") {
+      return;
+    }
+
+    if (!organizationId) {
+      setErrorMessage("Organization ID is required");
+      setScreen("error");
+      return;
+    }
+
+    setLoadingMessage("Loading voice features...");
+    getVapiSecrets({ organizationId })
+      .then((secrets) => {
+        setVapiSecrets(secrets);
+      })
+      .catch(() => {
+        setVapiSecrets(null);
+      })
+      .finally(() => {
+        setStep("done");
+      });
+  }, [step, organizationId]);
 
   useEffect(() => {
     if (step !== "done") {
@@ -150,7 +181,7 @@ export const WidgetLoadingScreen = ({
 
     const hasValidSession = contactSessionId && sessionValid;
     setScreen(hasValidSession ? "selection" : "auth");
-  }, [step, contactSessionId, sessionValid, setScreen]);
+  }, [step, contactSessionId, sessionValid]);
 
   return (
     <>
