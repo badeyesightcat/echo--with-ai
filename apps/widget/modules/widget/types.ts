@@ -3,6 +3,7 @@ import { Doc, Id } from "@workspace/backend/_generated/dataModel";
 
 export type WidgetScreenType = (typeof WIDGET_SCREENS)[number];
 export type WidgetSettingsType = Doc<"widgetSettings"> | null;
+export type VapiSecretsType = { publicApiKey: string } | null;
 
 export interface PersistedState {
   [key: string]: string | null | undefined | any;
@@ -15,7 +16,8 @@ export interface WidgetStateType extends PersistedState {
   organizationId: string | null;
   // contactSessionIdUpdated: number | undefined;
   conversationId: Id<"conversations"> | null;
-  widgetSettings: WidgetSettingsType | null;
+  widgetSettings: WidgetSettingsType;
+  vapiSecrets: VapiSecretsType;
 }
 
 export type WidgetActionType =
@@ -33,5 +35,6 @@ export type WidgetActionType =
   | { type: "CONVERSATION_ID"; payload: Id<"conversations"> | null }
   | {
       type: "WIDGET_SETTINGS";
-      payload: WidgetSettingsType | null;
-    };
+      payload: WidgetSettingsType;
+    }
+  | { type: "VAPI_SECRETS"; payload: VapiSecretsType };

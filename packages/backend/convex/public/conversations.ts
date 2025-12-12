@@ -20,6 +20,13 @@ export const create = mutation({
       });
     }
 
+    if (session.organizationId !== args.organizationId) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Session does not belong to this organization",
+      });
+    }
+
     const widgetSettings = await ctx.db
       .query("widgetSettings")
       .withIndex("by_organization_id", (q) =>
