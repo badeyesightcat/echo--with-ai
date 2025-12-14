@@ -52,6 +52,11 @@ const widgetReducer = (
         ...state,
         widgetSettings: action.payload,
       };
+    case "VAPI_SECRETS":
+      return {
+        ...state,
+        vapiSecrets: action.payload,
+      };
     default:
       return state;
   }
@@ -77,6 +82,7 @@ const loadInitialState = () => {
     // contactSessionIdUpdated: 0,
     conversationId: null,
     widgetSettings: null,
+    vapiSecrets: null,
   };
 
   try {
@@ -210,4 +216,13 @@ export const useConversationId = () => {
 export const useWidgetSettings = () => {
   const { widgetSettings } = useWidgetState();
   return widgetSettings;
+};
+
+export const useVapiSecrets = () => {
+  const { vapiSecrets } = useWidgetState();
+  return vapiSecrets;
+};
+
+export const useHasVapiSecrets = () => {
+  return useWidgetState().vapiSecrets !== null;
 };
