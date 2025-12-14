@@ -184,25 +184,20 @@ export const WidgetChatScreen = () => {
 
       {toUIMessages(messages.results ?? [])?.length === 1 && (
         <AISuggestions className="flex flex-col w-full items-end p-2">
-          {suggestions.map((suggestion) => {
-            if (!suggestion) {
-              return null;
-            }
-            return (
-              <AISuggestion
-                key={suggestion}
-                suggestion={suggestion}
-                onClick={() => {
-                  form.setValue("message", suggestion, {
-                    shouldDirty: true,
-                    shouldTouch: true,
-                    shouldValidate: true,
-                  });
-                  form.handleSubmit(onSubmit)();
-                }}
-              />
-            );
-          })}
+          {suggestions.map((suggestion) => (
+            <AISuggestion
+              key={suggestion}
+              suggestion={suggestion}
+              onClick={() => {
+                form.setValue("message", suggestion, {
+                  shouldDirty: true,
+                  shouldTouch: true,
+                  shouldValidate: true,
+                });
+                form.handleSubmit(onSubmit)();
+              }}
+            />
+          ))}
         </AISuggestions>
       )}
 

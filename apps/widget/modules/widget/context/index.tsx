@@ -224,5 +224,6 @@ export const useVapiSecrets = () => {
 };
 
 export const useHasVapiSecrets = () => {
-  return useWidgetState().vapiSecrets !== null;
+  const secret = useWidgetState().vapiSecrets;
+  return !!secret?.publicApiKey.trim();
 };

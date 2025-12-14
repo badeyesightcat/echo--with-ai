@@ -437,3 +437,9 @@ pnpm -F backend add convex-helpers
 - Load Vapi secrets in loading screen
 - Modify "use-vapi" hook to use organization's secrets
 - Modify "selection-screen" UI to display voice options
+
+## 29. Widget Improvements
+
+- Explain "error" from previous chapter
+- Fix scrolling issue in the widget
+- Add "contact-screen"
