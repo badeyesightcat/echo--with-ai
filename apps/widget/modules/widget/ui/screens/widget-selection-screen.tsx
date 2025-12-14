@@ -90,7 +90,7 @@ export const WidgetSelectionScreen = () => {
           <ChevronRightIcon />
         </Button>
 
-        {hasVapiSecrets && widgetSettings?.vapiSettings.assistantId && (
+        {hasVapiSecrets && widgetSettings?.vapiSettings?.assistantId && (
           <Button
             className="h-16 w-full justify-between bg-primary-foreground"
             variant="outline"
@@ -105,7 +105,7 @@ export const WidgetSelectionScreen = () => {
           </Button>
         )}
 
-        {hasVapiSecrets && widgetSettings?.vapiSettings.phoneNumber && (
+        {hasVapiSecrets && widgetSettings?.vapiSettings?.phoneNumber && (
           <Button
             className="h-16 w-full justify-between bg-primary-foreground"
             variant="outline"
@@ -114,7 +114,7 @@ export const WidgetSelectionScreen = () => {
           >
             <div className="flex items-center gap-x-2">
               <PhoneIcon className="size-4" />
-              <span>Call us</span>
+              <span>Contact us</span>
             </div>
             <ChevronRightIcon />
           </Button>

@@ -36,6 +36,8 @@ export const WidgetVoiceScreen = () => {
             variant="transparent"
             size="icon"
             onClick={() => setScreen("selection")}
+            type="button"
+            aria-label="Back"
           >
             <ArrowLeftIcon />
           </Button>
@@ -89,6 +91,7 @@ export const WidgetVoiceScreen = () => {
                 variant={"destructive"}
                 size="lg"
                 onClick={() => endCall()}
+                type="button"
               >
                 <MicOffIcon />
                 End call
@@ -99,6 +102,7 @@ export const WidgetVoiceScreen = () => {
                 disabled={isConnecting}
                 size="lg"
                 onClick={() => startCall()}
+                type="button"
               >
                 <MicIcon />
                 Start call

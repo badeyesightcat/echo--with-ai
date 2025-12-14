@@ -20,7 +20,10 @@ export const create = mutation({
       });
     }
 
-    if (session.organizationId !== args.organizationId) {
+    if (
+      !session.organizationId ||
+      session.organizationId !== args.organizationId
+    ) {
       throw new ConvexError({
         code: "UNAUTHORIZED",
         message: "Session does not belong to this organization",
