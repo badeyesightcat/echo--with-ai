@@ -62,7 +62,7 @@ export const getOne = query({
   handler: async (ctx, args) => {
     // No longer needs to confirm the user's auth due to their logging-in activity
     const identity = await ctx.auth.getUserIdentity();
-    console.log(identity);
+    // console.log(identity);
 
     if (identity === null) {
       throw new ConvexError({
@@ -126,7 +126,7 @@ export const getMany = query({
   handler: async (ctx, args) => {
     // No longer needs to confirm the user's auth due to their logging-in activity
     const identity = await ctx.auth.getUserIdentity();
-    console.log(identity);
+    // console.log(identity);
 
     if (identity === null) {
       throw new ConvexError({

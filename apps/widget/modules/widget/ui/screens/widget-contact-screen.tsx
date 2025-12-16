@@ -11,7 +11,7 @@ import { Button } from "@workspace/ui/components/button";
 import { WidgetHeader } from "../components/widget-header";
 import { WidgetScreenType } from "../../types";
 import { useWidgetDispatch, useWidgetSettings } from "../../context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export const WidgetContactScreen = () => {
@@ -23,6 +23,8 @@ export const WidgetContactScreen = () => {
     dispatch({ type: "SCREEN", payload });
 
   const [copied, setCopied] = useState(false);
+  let [timer, setTimer] = useState<NodeJS.Timeout | "">("");
+
   const handleCopy = async () => {
     if (!phoneNumber) {
       return;
@@ -33,11 +35,15 @@ export const WidgetContactScreen = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         setCopied(false);
       }, 2000);
     }
   };
+
+  useEffect(() => {
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -52,7 +58,7 @@ export const WidgetContactScreen = () => {
           >
             <ArrowLeftIcon />
           </Button>
-          <p>Contact Us</p>
+          <p>Call Us</p>
         </div>
       </WidgetHeader>
 
@@ -64,38 +70,40 @@ export const WidgetContactScreen = () => {
         <p className="font-bold text-2xl">{phoneNumber}</p>
       </div>
 
-      <div className="border-t bg-background p-4">
-        <div className="flex flex-col items-center gap-y-2">
-          <Button
-            onClick={handleCopy}
-            className="w-full"
-            size={"lg"}
-            variant={"outline"}
-          >
-            {copied ? (
-              <>
-                <CheckIcon className="mr-2 size-4" />
-                Copied!
-              </>
-            ) : (
-              <>
-                <CopyIcon className="mr-2 size-4" />
-                Copy number
-              </>
-            )}
-          </Button>
+      {!!phoneNumber?.trim() && (
+        <div className="border-t bg-background p-4">
+          <div className="flex flex-col items-center gap-y-2">
+            <Button
+              onClick={handleCopy}
+              className="w-full"
+              size={"lg"}
+              variant={"outline"}
+            >
+              {copied ? (
+                <>
+                  <CheckIcon className="mr-2 size-4" />
+                  Copied!
+                </>
+              ) : (
+                <>
+                  <CopyIcon className="mr-2 size-4" />
+                  Copy number
+                </>
+              )}
+            </Button>
 
-          <Button
-            asChild
-            className="w-full"
-            size={"lg"}
-          >
-            <Link href={`tel:${phoneNumber}`}>
-              <PhoneCallIcon /> Call now
-            </Link>
-          </Button>
+            <Button
+              asChild
+              className="w-full"
+              size={"lg"}
+            >
+              <Link href={`tel:${phoneNumber}`}>
+                <PhoneCallIcon /> Call now
+              </Link>
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
