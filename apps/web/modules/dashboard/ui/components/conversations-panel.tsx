@@ -69,8 +69,8 @@ export const ConversationsPanel = () => {
   });
 
   return (
-    <div className="flex h-full w-full flex-col bg-primary-foreground text-sidebar-foreground">
-      <div className="flex flex-col gap-3.5 border-b p-2">
+    <div className="flex h-full w-full flex-col">
+      <div className="flex flex-col gap-3.5 border-b p-2 bg-background">
         <Select
           defaultValue="all"
           onValueChange={setStatusFilter}
@@ -133,7 +133,7 @@ export const ConversationsPanel = () => {
                     )}
                   />
                   <DicebearAvatar
-                    seed={conversation?.lastMessage?.message?.role!}
+                    seed={conversation.contactSession._id}
                     size={40}
                     badgeImageUrl={countryFlagUrl}
                   />

@@ -443,3 +443,8 @@ pnpm -F backend add convex-helpers
 - Explain "error" from previous chapter
 - Fix scrolling issue in the widget
 - Add "contact-screen"
+
+## 30. Contact Panel
+
+- Create new layout
+- Create "contact-panel"

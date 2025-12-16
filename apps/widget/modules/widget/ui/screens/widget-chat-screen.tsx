@@ -184,9 +184,9 @@ export const WidgetChatScreen = () => {
 
       {toUIMessages(messages.results ?? [])?.length === 1 && (
         <AISuggestions className="flex flex-col w-full items-end p-2">
-          {suggestions.map((suggestion) => (
+          {suggestions.map((suggestion, idx) => (
             <AISuggestion
-              key={suggestion}
+              key={`${suggestion}-${idx}`}
               suggestion={suggestion}
               onClick={() => {
                 form.setValue("message", suggestion, {
