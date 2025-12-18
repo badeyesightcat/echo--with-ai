@@ -61,7 +61,7 @@ export const WidgetAuthScreen = () => {
       viewportSize: `${window.innerWidth}x${window.innerHeight}`,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       timezoneOffset: new Date().getTimezoneOffset(),
-      cookieEnalbled: navigator.cookieEnabled,
+      cookieEnabled: navigator.cookieEnabled,
       referrer: document.referrer || "direct",
       currentUrl: window.location.href,
     };

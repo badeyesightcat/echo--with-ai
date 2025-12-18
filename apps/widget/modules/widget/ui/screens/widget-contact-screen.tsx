@@ -11,7 +11,7 @@ import { Button } from "@workspace/ui/components/button";
 import { WidgetHeader } from "../components/widget-header";
 import { WidgetScreenType } from "../../types";
 import { useWidgetDispatch, useWidgetSettings } from "../../context";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export const WidgetContactScreen = () => {
@@ -23,7 +23,7 @@ export const WidgetContactScreen = () => {
     dispatch({ type: "SCREEN", payload });
 
   const [copied, setCopied] = useState(false);
-  let [timer, setTimer] = useState<NodeJS.Timeout | "">("");
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleCopy = async () => {
     if (!phoneNumber) {
@@ -35,14 +35,16 @@ export const WidgetContactScreen = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      timer = setTimeout(() => {
+      timerRef.current = setTimeout(() => {
         setCopied(false);
       }, 2000);
     }
   };
 
   useEffect(() => {
-    return () => clearTimeout(timer);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, []);
 
   return (
