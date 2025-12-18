@@ -2,6 +2,10 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  subscriptions: defineTable({
+    organizationId: v.string(),
+    status: v.string(),
+  }).index("by_organization_id", ["organizationId"]),
   widgetSettings: defineTable({
     organizationId: v.string(),
     greetMessage: v.string(),
@@ -52,9 +56,9 @@ export default defineSchema({
         viewportSize: v.optional(v.string()),
         timezone: v.optional(v.string()),
         timezoneOffset: v.optional(v.number()),
-        cookieEnalbled: v.optional(v.boolean()),
         referrer: v.optional(v.string()),
         currentUrl: v.optional(v.string()),
+        cookieEnabled: v.optional(v.boolean()),
       })
     ),
   })

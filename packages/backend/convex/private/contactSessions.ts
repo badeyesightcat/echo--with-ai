@@ -16,14 +16,14 @@ export const getOneByConversationId = query({
       });
     }
 
-    const orgId = identity.orgId as string;
-
-    if (!orgId) {
+    if (!identity.orgId) {
       throw new ConvexError({
         code: "UNAUTHORIZED",
         message: "Organization not found",
       });
     }
+
+    const orgId = identity.orgId as string;
 
     const conversation = await ctx.db.get(args.conversationId);
 
@@ -42,6 +42,13 @@ export const getOneByConversationId = query({
     }
 
     const contactSession = await ctx.db.get(conversation.contactSessionId);
+
+    if (!contactSession) {
+      throw new ConvexError({
+        code: "NOT_FOUND",
+        message: "Contact session not found",
+      });
+    }
 
     return contactSession;
   },

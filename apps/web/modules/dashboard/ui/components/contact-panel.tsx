@@ -54,7 +54,6 @@ export const ContactPanel = () => {
       // whether we can fetch this info or not
       const browser = Bowser.getParser(userAgent);
       const result = browser.getResult();
-      console.log("user's browser info is:", result);
 
       return {
         browser: result.browser.name || "Unknown",
@@ -70,7 +69,7 @@ export const ContactPanel = () => {
 
   const userAgentInfo = useMemo(
     () => parseUserAgent(contactSession?.metadata?.userAgent),
-    [contactSession?.metadata?.userAgent]
+    [contactSession?.metadata?.userAgent, parseUserAgent]
   );
 
   const countryInfo = useMemo(() => {
@@ -105,7 +104,7 @@ export const ContactPanel = () => {
           { label: "Viewport", value: contactSession.metadata.viewportSize },
           {
             label: "Cookies",
-            value: contactSession.metadata.cookieEnalbled
+            value: contactSession.metadata.cookieEnabled
               ? "Enabled"
               : "Disabled",
           },

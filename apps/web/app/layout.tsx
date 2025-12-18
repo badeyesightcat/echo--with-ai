@@ -33,7 +33,13 @@ export default function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} ${fontSerif.variable} font-sans antialiased`}
       >
-        <ClerkProvider>
+        <ClerkProvider
+          appearance={{
+            variables: {
+              colorPrimary: "#2e7d32",
+            },
+          }}
+        >
           <Providers>
             <Toaster />
             {children}
