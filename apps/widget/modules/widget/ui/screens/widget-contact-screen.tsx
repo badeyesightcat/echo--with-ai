@@ -35,6 +35,8 @@ export const WidgetContactScreen = () => {
     } catch (error) {
       console.error(error);
     } finally {
+      if (timerRef.current) clearTimeout(timerRef.current);
+
       timerRef.current = setTimeout(() => {
         setCopied(false);
       }, 2000);

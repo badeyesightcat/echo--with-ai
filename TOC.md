@@ -448,3 +448,17 @@ pnpm -F backend add convex-helpers
 
 - Create new layout
 - Create "contact-panel"
+
+## 31. Subscriptions
+
+- Create "subscriptions" schema
+- Create "subscriptions" functions
+- Add UI protection
+- Add API protection
+- Add Billing page
+
+## 32. API Improvements
+
+- Create "refresh" contact session method
+- Refresh contact session when needed: when user is active
+- Protect functions for pro-only features
