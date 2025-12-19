@@ -4,8 +4,16 @@ import { Webhook } from "svix";
 import { createClerkClient, type WebhookEvent } from "@clerk/backend";
 import { internal } from "./_generated/api";
 
+const PRO_PLAN_MAX_MEMBERS = 5;
+const FREE_PLAN_MAX_MEMBERS = 1;
+
+const clerkSecretKey = process.env.CLERK_SECRET_KEY;
+if (!clerkSecretKey) {
+  throw new Error("CLERK_SECRET_KEY environment variable is required");
+}
+
 const clerkClient = createClerkClient({
-  secretKey: process.env.CLERK_SECRET_KEY || "",
+  secretKey: clerkSecretKey,
 });
 
 const http = httpRouter();
@@ -36,11 +44,21 @@ http.route({
         }
 
         const newMaxAllowedMemberships =
-          subscription.status === "active" ? 5 : 1;
+          subscription.status === "active"
+            ? PRO_PLAN_MAX_MEMBERS
+            : FREE_PLAN_MAX_MEMBERS;
 
-        await clerkClient.organizations.updateOrganization(organizationId, {
-          maxAllowedMemberships: newMaxAllowedMemberships,
-        });
+        try {
+          await clerkClient.organizations.updateOrganization(organizationId, {
+            maxAllowedMemberships: newMaxAllowedMemberships,
+            publicMetadata: {
+              plan: subscription.status === "active" ? "pro" : "free",
+            },
+          });
+        } catch (error) {
+          console.error("Failed to update organization:", error);
+          return new Response("Failed to update organization", { status: 500 });
+        }
 
         await ctx.runMutation(internal.system.subscriptions.upsert, {
           status: subscription.status,
@@ -57,6 +75,11 @@ http.route({
   }),
 });
 
+const webhookSecret = process.env.CLERK_WEBHOOK_SECRET;
+if (!webhookSecret) {
+  throw new Error("CLERK_WEBHOOK_SECRET environment variable is required");
+}
+
 const validateRequest = async (req: Request): Promise<WebhookEvent | null> => {
   const payloadString = await req.text();
   const svixHeaders = {
@@ -65,7 +88,7 @@ const validateRequest = async (req: Request): Promise<WebhookEvent | null> => {
     "svix-signature": req.headers.get("svix-signature") || "",
   };
 
-  const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET || "");
+  const wh = new Webhook(webhookSecret);
 
   try {
     return wh.verify(payloadString, svixHeaders) as unknown as WebhookEvent;
