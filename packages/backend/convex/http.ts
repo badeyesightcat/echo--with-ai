@@ -3,9 +3,7 @@ import { httpAction } from "./_generated/server";
 import { Webhook } from "svix";
 import { createClerkClient, type WebhookEvent } from "@clerk/backend";
 import { internal } from "./_generated/api";
-
-const PRO_PLAN_MAX_MEMBERS = 5;
-const FREE_PLAN_MAX_MEMBERS = 1;
+import { FREE_PLAN_MAX_MEMBERS, PRO_PLAN_MAX_MEMBERS } from "./constants";
 
 const clerkSecretKey = process.env.CLERK_SECRET_KEY;
 if (!clerkSecretKey) {
@@ -15,6 +13,29 @@ if (!clerkSecretKey) {
 const clerkClient = createClerkClient({
   secretKey: clerkSecretKey,
 });
+
+const webhookSecret = process.env.CLERK_WEBHOOK_SECRET;
+if (!webhookSecret) {
+  throw new Error("CLERK_WEBHOOK_SECRET environment variable is required");
+}
+
+const validateRequest = async (req: Request): Promise<WebhookEvent | null> => {
+  const payloadString = await req.text();
+  const svixHeaders = {
+    "svix-id": req.headers.get("svix-id") || "",
+    "svix-timestamp": req.headers.get("svix-timestamp") || "",
+    "svix-signature": req.headers.get("svix-signature") || "",
+  };
+
+  const wh = new Webhook(webhookSecret);
+
+  try {
+    return wh.verify(payloadString, svixHeaders) as unknown as WebhookEvent;
+  } catch (error) {
+    console.error("Error verifying webhook event:", error);
+    return null;
+  }
+};
 
 const http = httpRouter();
 
@@ -43,16 +64,17 @@ http.route({
           return new Response("Missing organization ID", { status: 400 });
         }
 
-        const newMaxAllowedMemberships =
-          subscription.status === "active"
-            ? PRO_PLAN_MAX_MEMBERS
-            : FREE_PLAN_MAX_MEMBERS;
+        const isActive = subscription.status === "active";
+
+        const newMaxAllowedMemberships = isActive
+          ? PRO_PLAN_MAX_MEMBERS
+          : FREE_PLAN_MAX_MEMBERS;
 
         try {
           await clerkClient.organizations.updateOrganization(organizationId, {
             maxAllowedMemberships: newMaxAllowedMemberships,
             publicMetadata: {
-              plan: subscription.status === "active" ? "pro" : "free",
+              plan: isActive ? "pro" : "free",
             },
           });
         } catch (error) {
@@ -74,28 +96,5 @@ http.route({
     return new Response(null, { status: 200 });
   }),
 });
-
-const webhookSecret = process.env.CLERK_WEBHOOK_SECRET;
-if (!webhookSecret) {
-  throw new Error("CLERK_WEBHOOK_SECRET environment variable is required");
-}
-
-const validateRequest = async (req: Request): Promise<WebhookEvent | null> => {
-  const payloadString = await req.text();
-  const svixHeaders = {
-    "svix-id": req.headers.get("svix-id") || "",
-    "svix-timestamp": req.headers.get("svix-timestamp") || "",
-    "svix-signature": req.headers.get("svix-signature") || "",
-  };
-
-  const wh = new Webhook(webhookSecret);
-
-  try {
-    return wh.verify(payloadString, svixHeaders) as unknown as WebhookEvent;
-  } catch (error) {
-    console.error("Error verifying webhook event:", error);
-    return null;
-  }
-};
 
 export default http;

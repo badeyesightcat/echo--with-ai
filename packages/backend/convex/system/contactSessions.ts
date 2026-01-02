@@ -16,6 +16,7 @@ export const refresh = internalMutation({
     contactSessionId: v.id("contactSessions"),
   },
   handler: async (ctx, args) => {
+    const now = Date.now();
     const contactSession = await ctx.db.get(args.contactSessionId);
 
     if (!contactSession) {
@@ -25,17 +26,17 @@ export const refresh = internalMutation({
       });
     }
 
-    if (contactSession.expiresAt < Date.now()) {
+    if (contactSession.expiresAt < now) {
       throw new ConvexError({
         code: "BAD_REQUEST",
         message: "Contact session already expired",
       });
     }
 
-    const timeRemaining = contactSession.expiresAt - Date.now();
+    const timeRemaining = contactSession.expiresAt - now;
 
     if (timeRemaining < AUTO_REFRESH_THRESHOLD_MS) {
-      const newExpiresAt = Date.now() + SESSION_DURATION_MS;
+      const newExpiresAt = now + SESSION_DURATION_MS;
 
       await ctx.db.patch(args.contactSessionId, {
         expiresAt: newExpiresAt,
