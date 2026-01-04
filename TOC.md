@@ -462,3 +462,8 @@ pnpm -F backend add convex-helpers
 - Create "refresh" contact session method
 - Refresh contact session when needed: when user is active
 - Protect functions for pro-only features
+
+## 33. Integrations UI
+
+- Create "integrations-view"
+- Create "integrations-dialog"
