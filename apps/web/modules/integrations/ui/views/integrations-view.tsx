@@ -20,30 +20,56 @@ import { useState } from "react";
 import { createScript } from "../../utils";
 
 export const IntegrationsView = () => {
-  const { organization } = useOrganization();
+  const { organization, isLoaded } = useOrganization();
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedSnippet, setSelectedSnippet] = useState<string>("");
 
   const handleIntegrationClick = (integrationId: IntegrationId) => {
-    if (!integrationId) {
+    if (!organization?.id) {
       toast.error("Organization ID not found");
       return;
     }
 
-    const snippet = createScript(integrationId, organization?.id ?? "");
-    setSelectedSnippet(snippet);
+    if (!integrationId) {
+      toast.error("Integration ID not found");
+      return;
+    }
+
+    const snippet = createScript(integrationId, organization.id);
+    snippet && setSelectedSnippet(snippet);
     setDialogOpen(true);
   };
 
   const handleCopy = async () => {
+    if (!organization?.id) {
+      toast.error("Organization ID not available");
+      return;
+    }
+
     try {
-      await navigator.clipboard.writeText(organization?.id ?? "");
+      await navigator.clipboard.writeText(organization.id);
       toast.success("Copied to clipboard");
     } catch (error) {
       toast.error("Failed to copy to clipboard");
     }
   };
+
+  if (!isLoaded) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!organization) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        No organization found
+      </div>
+    );
+  }
 
   return (
     <>
@@ -161,7 +187,7 @@ export const IntegrationsDialog = ({
                 {snippet}
               </pre>
               <Button
-                className="absolute top-4 right-6 size-6 opacity-0 transition-opacity group-hover:opacity-100"
+                className="absolute top-4 right-6 size-6 opacity-50 transition-opacity hover:opacity-100 md:opacity-0 md:group-hover:opacity-100"
                 onClick={handleCopy}
                 size={"icon"}
                 variant={"secondary"}

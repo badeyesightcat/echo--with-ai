@@ -467,3 +467,16 @@ pnpm -F backend add convex-helpers
 
 - Create "integrations-view"
 - Create "integrations-dialog"
+
+## 34. Embed Script
+
+- Create "embed" vite app
+- Create "embed.ts" script
+- Create "build" script
+- Test minimized embed script
+
+  > [!CAUTION] If we want to insert the widget into a website, then we could customize main domain in terminal on build process:
+
+  ```
+  VITE_WIDGET_URL=https://some-where-else-widget-to-be-inserted.com pnpm build
+  ```
