@@ -1,9 +1,10 @@
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
-import { Webhook } from "svix";
+// import { Webhook } from "svix";
 import { createClerkClient, type WebhookEvent } from "@clerk/backend";
 import { internal } from "./_generated/api";
 import { FREE_PLAN_MAX_MEMBERS, PRO_PLAN_MAX_MEMBERS } from "./constants";
+import { verifyWebhook } from "@clerk/backend/webhooks";
 
 const clerkSecretKey = process.env.CLERK_SECRET_KEY;
 if (!clerkSecretKey) {
@@ -20,17 +21,18 @@ if (!webhookSecret) {
 }
 
 const validateRequest = async (req: Request): Promise<WebhookEvent | null> => {
-  const payloadString = await req.text();
-  const svixHeaders = {
-    "svix-id": req.headers.get("svix-id") || "",
-    "svix-timestamp": req.headers.get("svix-timestamp") || "",
-    "svix-signature": req.headers.get("svix-signature") || "",
-  };
+  // const payloadString = await req.text();
+  // const svixHeaders = {
+  //   "svix-id": req.headers.get("svix-id") || "",
+  //   "svix-timestamp": req.headers.get("svix-timestamp") || "",
+  //   "svix-signature": req.headers.get("svix-signature") || "",
+  // };
 
-  const wh = new Webhook(webhookSecret);
+  // const wh = new Webhook(webhookSecret);
 
   try {
-    return wh.verify(payloadString, svixHeaders) as unknown as WebhookEvent;
+    return await verifyWebhook(req);
+    // return wh.verify(payloadString, svixHeaders) as unknown as WebhookEvent;
   } catch (error) {
     console.error("Error verifying webhook event:", error);
     return null;
