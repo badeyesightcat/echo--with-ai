@@ -138,8 +138,13 @@ import { chatBubbleIcon, closeIcon } from "./icons";
         hide();
         break;
       case "resize":
-        if (payload.height && container) {
-          container.style.height = `${payload.height}px`;
+        if (
+          container &&
+          typeof payload.height === "number" &&
+          payload.height > 0 &&
+          payload.height <= 2000
+        ) {
+          container.style.height = `${Math.round(payload.height)}px`;
         }
         break;
     }

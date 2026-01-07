@@ -37,8 +37,12 @@ export const IntegrationsView = () => {
     }
 
     const snippet = createScript(integrationId, organization.id);
-    snippet && setSelectedSnippet(snippet);
-    setDialogOpen(true);
+    if (snippet) {
+      setSelectedSnippet(snippet);
+      setDialogOpen(true);
+    } else {
+      toast.error("Failed to generate integration script.");
+    }
   };
 
   const handleCopy = async () => {
