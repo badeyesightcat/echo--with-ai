@@ -477,6 +477,12 @@ pnpm -F backend add convex-helpers
 
   > [!CAUTION] If we want to insert the widget into a website, then we could customize main domain in terminal on build process:
 
-  ```
+  ```bash
   VITE_WIDGET_URL=https://some-where-else-widget-to-be-inserted.com pnpm build
   ```
+
+  ## 35. Deployment
+
+- Deploy "web" app
+- Deploy "widget" app
+- Test embed script from live app

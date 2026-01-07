@@ -22,5 +22,5 @@ export const createScript = (
   }
 
   const template = SCRIPT_TEMPLATES[integrationId];
-  return template?.replace(/{{ORGANIZATION_ID}}/g, organizationId);
+  return template?.replace(/{{ORGANIZATION_ID}}/g, organizationId) ?? "";
 };
